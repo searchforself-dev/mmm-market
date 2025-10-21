@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     
-    const MMMTrackerApp = {
+    const MMNTrackerApp = {
         stores: {
             settings: null,
             locations: null,
@@ -783,9 +783,9 @@
     };
     
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => MMMTrackerApp.init());
+        document.addEventListener('DOMContentLoaded', () => MMNTrackerApp.init());
     } else {
-        MMMTrackerApp.init();
+        MMNTrackerApp.init();
     }
     
 })();
