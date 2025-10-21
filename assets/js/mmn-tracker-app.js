@@ -91,7 +91,19 @@
             const zip = widget.dataset.zip || '';
             const unit = widget.dataset.unit || '';
             
-            const settings = await this.stores.settings.getItem('local-settings');
+            let settings = await this.stores.settings.getItem('local-settings');
+
+            // If settings are null (e.g., first visit), create a default object.
+            if (!settings) {
+                settings = {
+                    preferred_zip: '',
+                    preferred_commodities: this.config.defaultCommodities || ['corn', 'soybeans', 'wheat'],
+                    unit: this.config.defaultUnit || 'bushel',
+                    last_sync_at: null,
+                    poll_interval: this.config.pollInterval || 60,
+                    max_retention_days: this.config.maxRetentionDays || 365
+                };
+            }
             
             if (commodities) {
                 settings.preferred_commodities = commodities.split(',').map(c => c.trim());
