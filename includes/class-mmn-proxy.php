@@ -145,12 +145,16 @@ class MMN_Proxy {
     private function fetch_reports_by_state($api_key, $params, $cache_key = null) {
         $query_params = array();
         
-        if (!empty($params['state'])) {
-            $query_params['state'] = sanitize_text_field($params['state']);
-        }
-        
+        $query_parts = [];
         if (!empty($params['commodity'])) {
-            $query_params['q'] = sanitize_text_field($params['commodity']);
+            $query_parts[] = sanitize_text_field($params['commodity']);
+        }
+        if (!empty($params['state'])) {
+            $query_parts[] = sanitize_text_field($params['state']);
+        }
+
+        if (!empty($query_parts)) {
+            $query_params['q'] = implode(' ', $query_parts);
         }
         
         $url = add_query_arg($query_params, $this->mmn_base_url);
