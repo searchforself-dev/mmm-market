@@ -336,8 +336,9 @@
                 const data = await response.json();
                 
                 if (data && data.results && data.results.length > 0) {
-                    const report = data.results[0];
-                    await this.fetchReportDetails(commodity, report.slug_id || report.reportId, settings);
+                    for (const report of data.results) {
+                        await this.fetchReportDetails(commodity, report.slug_id || report.reportId, settings);
+                    }
                 }
                 
             } catch (error) {
@@ -471,7 +472,7 @@
             if (!tbody) return;
             
             if (snapshots.length === 0) {
-                tbody.innerHTML = `<tr class="mmn-no-data"><td colspan="6">${this.config.i18n.noData}</td></tr>`;
+                tbody.innerHTML = `<tr class="mmn-no-data"><td colspan="6">${this.config.i18n.noData || 'No market reports found for the selected criteria.'}</td></tr>`;
                 return;
             }
             
