@@ -276,9 +276,7 @@
                 snapshots.push(value);
             });
             
-            if (snapshots.length > 0) {
-                this.renderPriceTable(widget, snapshots);
-            }
+            this.renderPriceTable(widget, snapshots);
         },
         
         refreshData: async function(widget, settings) {
